@@ -6,13 +6,14 @@ export default class Movie extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movie: null
+      movie: null,
+      props
     };
   }
 
   componentDidMount() {
     // change this line to grab the id passed on the URL
-    const id = this.props.match.params.id;
+    const id = this.state.props.match.params.id;
     this.fetchMovie(id);
   }
 
@@ -39,8 +40,6 @@ export default class Movie extends Component {
   // }
 
   render() {
-    console.log(this.state)
-    console.log(this.props)
     if (!this.state.movie) {
       return <div>Loading movie information...</div>;
     }
@@ -48,7 +47,7 @@ export default class Movie extends Component {
     return (
       <div className="save-wrapper">
         <MovieCard movie={this.state.movie}/>
-        <div className="save-button">Save</div>
+        <div className="save-button"onClick={() => this.state.props.addToSavedList(this.state.movie)}>Save</div>
       </div>
     );
   }
